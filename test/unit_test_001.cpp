@@ -38,12 +38,10 @@ unittest_teardown()
 
 unittest(test_constants)
 {
-  assertEqual(0x40, CHT8310_DEFAULT_ADDRESS);
-  
-  // #define DS3232_OK                  0
-// #define DS3232_ERROR_ADDR          -10
-// #define DS3232_ERROR_I2C           -11
-// #define DS3232_ERROR_CONNECT       -12
+  assertEqual(0,   DS3232_OK);
+  assertEqual(-10, DS3232_ERROR_ADDR);
+  assertEqual(-10, DS3232_ERROR_I2C);
+  assertEqual(-10, DS3232_ERROR_CONNECT);
 }
 
 

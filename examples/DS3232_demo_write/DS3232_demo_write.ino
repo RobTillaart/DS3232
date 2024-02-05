@@ -56,7 +56,7 @@ void loop()
 
 void printDate(Stream &str)
 {
-  char buffer[12];
+  char buffer[16];
   sprintf(buffer, "%04d-%02d-%02d", 
         2000 + rtc.year(), rtc.month(), rtc.day());
   str.print(buffer);
@@ -64,7 +64,7 @@ void printDate(Stream &str)
 
 void printTime(Stream &str)
 {
-  char buffer[12];
+  char buffer[16];
   sprintf(buffer, "%02d:%02d:%02d", 
         rtc.hours(), rtc.minutes(), rtc.seconds());
   str.print(buffer);
