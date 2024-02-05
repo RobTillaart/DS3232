@@ -16,37 +16,39 @@ Arduino library for I2C DS3232 real time clock and compatibles.
 
 ## Description
 
-This DS3232 library provides a minimalistic interface to read from 
-and write to the I2C DS3232 RTC device and compatibles.
+This DS3232 library provides a minimalistic interface to read and write the date 
+and time to and from the I2C DS3232 RTC device and compatibles.
 
 What is different from other RTC libraries is that it directly provides fields like
-seconds, minutes etc. and not use structs from libraries like time.h or timelib.h.
-Goal is to improve the ease of use for those who just need date and time elements.
+seconds, minutes etc. and not use ``` time structs``` from libraries like 
+```time.h``` or ```timelib.h```. This has its pros and cons of course.
+Goal is to improve the ease of use for those who just need the date and time elements
+and not use the alarms etc.
 
-The library only supports the 24 hour / day model to minimize footprint.
-Subtracting 12 is not too difficult if one wants an "AM/PM" layout.
+Furthermore the library only supports the 24 hour per day model to minimize footprint.
+Subtracting 12 hours is not too difficult if one wants an "AM/PM" layout.
 
-The current version does not support any special feature other than a generic
-**readRegister()** and **writeRegister()** function.
+The current version does not support any special feature other than two generic
+**readRegister()** and **writeRegister()** functions.
 These two functions allows users access to all registers and to do anything possible.
+However for people who need a full function DS3232 library check the excellent 
+library at https://github.com/JChristensen/DS3232RTC
 
-For people who need a full function DS3232 library check the excellent library 
-at https://github.com/JChristensen/DS3232RTC
 
-
-Note: This library is a refactored version of an old DS3232 library from 2011
-which was never published.
+Note: This DS3232 library is a refactored version of an old experimental DS3232 library 
+from 2011 which was never published.
 
 
 #### Tests
 
-Tested with UNO.
+All examples are tested with Arduino UNO with 100KHz I2C.
 
 
 #### Compatibles
 
-DS3231 is compatible for time keeping part.
-It does not have the SRAM the DS3232 has
+The DS3231 RTC is compatible for the date and time keeping part.
+The only difference found is that the DS3231 does not have the SRAM 
+the DS3232 has.
 
 
 #### Related
@@ -68,7 +70,7 @@ Pull ups are needed on SDA, SCL and other pins (datasheet).
 
 I2C bus speeds officially supports up to 400 KHz.
 
-timing on UNO of **read()** in microseconds
+Timing of UNO with DS3232 of **read()** in microseconds.
 
 |  board   |  speed   |  time  |  notes  |
 |:--------:|:--------:|:------:|:-------:|
@@ -82,15 +84,20 @@ timing on UNO of **read()** in microseconds
 |   UNO    |  700000  |   280  |  indicative
 |   UNO    |  800000  |   272  |  indicative
 
+Note that the performance can be increased a lot by keeping track 
+of the lastRead(). See example **DS3232_demo_read_minute.ino**
+An indication averaged around 44us per update on UNO.
+
 
 #### Address
 
-Fixed address 0x68, see datasheet
+Fixed address 0x68, both for DS3232 and DS3231, see datasheet
 
 #### I2C multiplexing
 
-Imagine you want multiple clocks e.g. for different time zones, or
-just to average them to be more precise.
+Imagine you want multiple clocks e.g. for different time zones.
+Or just to average them to be more precise, or as backup of each other
+so even swapping batteries can be doen without loss of availability.
 
 Sometimes you need to control more devices than possible with the default
 address range the device provides.
@@ -116,23 +123,24 @@ too if they are behind the multiplexer.
 
 #### Constructor
 
-- **DS3232(const uint8_t address = DS3232_DEFAULT_ADDRESS, TwoWire \*wire = &Wire)** Constructor 
-with default address (0x40) and I2C bus.
+- **DS3231(TwoWire \*wire = &Wire)** Constructor and I2C bus.
+- **DS3232(TwoWire \*wire = &Wire)** Constructor and I2C bus.
 - **int begin()** initializes internals.
 Returns error status.
-- **bool isConnected()** checks if address (default 0x40) can be seen on the I2C bus.
-- **uint8_t getAddress()** returns address set in constructor.
-
+- **bool isConnected()** checks if address (default 0x68) can be seen on the I2C bus.
+- **uint8_t getAddress()** returns address (0x68) set in constructor.
+- **uint16_t getType()** returns 3232 or 3231, depending on constructor.
 
 #### Base RTC
 
 - **int read()** read the current time from the RTC.
 - **int write()** set the current time in the RTC.
+Writes all fields.
 - **uint32_t lastRead()** lastTime in milliseconds when RTC is read.
 
 #### Getters
 
-Getters return cached value, to update call **read()** first.
+Getters return the last read value, to update call **read()** first.
 
 - **uint8_t seconds()**
 - **uint8_t minutes()**
@@ -144,7 +152,7 @@ Getters return cached value, to update call **read()** first.
 
 #### Setters
 
-Setters set a cached value, to update the RTC call **write()** after.
+Setters set a value, to update the RTC call **write()** after.
 
 - **void setSeconds(uint8_t value)**
 - **void setMinutes(uint8_t value)**
@@ -154,6 +162,26 @@ Setters set a cached value, to update the RTC call **write()** after.
 - **void setYear(uint8_t value)**
 
 Note: weekDay cannot be set.
+
+Note: you can also adjust just one field and keep the others.
+
+
+#### Low level: Read/WriteRegister
+
+Allows to access all functionality the library did not implement (yet).
+Check datasheet for details per register.
+Use with care.
+
+- **int readRegister(uint8_t reg)**
+- **int writeRegister(uint8_t reg, uint8_t value)**
+
+
+#### Debug
+
+In case of an I2C error one can get the last return value 
+of ```wire.EndTransmission()``` to get an indication of the problem.
+
+- **int lastRv()** values depend on platform used.
 
 
 ## Future
@@ -166,11 +194,14 @@ Note: weekDay cannot be set.
 
 - test platforms
 - test performance / footprint
+- can the trick from the example be included in the library?
+  - extra footprint?
 
 #### Could
 
-- split read() in readDate() + readTime()
-  - date is not read so often?
+- add readDate() + readTime()
+  - less IO
+  - as date is not read so often?
 - int getTemperature();
 - SRAM 236 bytes
   - int SRAMwrite8(uint8_t index, uint8_t value);

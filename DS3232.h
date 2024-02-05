@@ -41,6 +41,7 @@ public:
   int      begin();
   bool     isConnected();
   uint8_t  getAddress();
+  uint16_t getType();
 
   //  BASE RTC
   int      read();
@@ -72,8 +73,11 @@ public:
   int      readRegister(uint8_t reg);
   int      writeRegister(uint8_t reg, uint8_t value);
 
+  //  DEBUG
+  int      lastRv() { return _rv; };
 
-private:
+
+protected:
   uint8_t   _address;
   TwoWire * _wire;
 
@@ -81,10 +85,22 @@ private:
   uint8_t   _reg[7];
   uint32_t  _lastRead = 0;
 
-  int _rv;
+  int       _rv;
+  uint16_t  _type = 3232;
 
-  uint8_t dec2bcd(uint8_t n);
-  uint8_t bcd2dec(uint8_t n);
+  uint8_t   dec2bcd(uint8_t value);
+  uint8_t   bcd2dec(uint8_t value);
+};
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//  DERIVED CLASSES
+//
+class DS3231 : public DS3232
+{
+public:
+  DS3231(TwoWire *wire = &Wire);
 };
 
 

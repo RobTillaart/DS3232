@@ -12,7 +12,7 @@
 #include "DS3232.h"
 
 
-DS3232 rtc;
+DS3231 rtc;
 
 
 void setup()
@@ -30,6 +30,8 @@ void setup()
     Serial.println("could not connect, check wires etc");
     while (1);
   }
+  Serial.println(rtc.getType());
+  
   rtc.read();
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "DS3232",
-  "keywords": "DS3232",
-  "description": "Arduino library for DS3232 RTC (minimalistic).",
+  "keywords": "DS3232, DS3231",
+  "description": "Arduino library for I2C DS3232 RTC (minimalistic).",
   "authors":
   [
     {

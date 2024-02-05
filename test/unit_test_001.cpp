@@ -57,6 +57,19 @@ unittest(test_registers)
 }
 
 
+unittest(test_getType_getAddress)
+{
+  DS3231 rtc1;
+  DS3232 rtc2;
+
+  assertEqual(3231, rtc1.getType());
+  assertEqual(3232, rtc2.getType());
+
+  assertEqual(0x68, rtc1.getAddress());
+  assertEqual(0x68, rtc2.getAddress());
+}
+
+
 unittest(test_getters_setters)
 {
   DS3232 rtc;

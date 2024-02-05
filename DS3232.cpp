@@ -18,6 +18,7 @@ DS3232::DS3232(TwoWire *wire)
 {
   _wire     = wire;
   _address  = 0x68;  //  fixed.
+  _type     = 3232;
   _lastRead = 0;
   for (int i = 0; i < 7; i++)
   {
@@ -36,13 +37,20 @@ int DS3232::begin()
 bool DS3232::isConnected()
 {
   _wire->beginTransmission(_address);
-  return (_wire->endTransmission() == 0);
+  _rv = _wire->endTransmission();
+  return (_rv == 0);
 }
 
 
 uint8_t DS3232::getAddress()
 {
   return _address;
+}
+
+
+uint16_t DS3232::getType()
+{
+  return _type;
 }
 
 
@@ -170,6 +178,22 @@ uint8_t DS3232::dec2bcd(uint8_t value)
 uint8_t DS3232::bcd2dec(uint8_t value)
 {
   return value - 6 * (value >> 4);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//  DERIVED CLASSES
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//  DS3231
+//
+DS3231::DS3231(TwoWire *wire) : DS3232(wire)
+{
+  _type = 3231;
 }
 
 
