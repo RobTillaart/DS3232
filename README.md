@@ -47,8 +47,8 @@ All examples are tested with Arduino UNO with 100KHz I2C.
 #### Compatibles
 
 The DS3231 RTC is compatible for the date and time keeping part.
-The only difference found is that the DS3231 does not have the SRAM 
-the DS3232 has.
+The only difference found is that the DS3231 does not have the 
+236 bytes of **battery backupped** SRAM the DS3232 has.
 
 
 #### Related
