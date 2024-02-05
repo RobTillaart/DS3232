@@ -1,0 +1,22 @@
+# Syntax Colouring Map For DS3232
+
+# Data types (KEYWORD1)
+DS3232	KEYWORD1
+
+
+# Methods and Functions (KEYWORD2)
+begin	KEYWORD2
+isConnected	KEYWORD2
+getAddress	KEYWORD2
+
+getTime_t	KEYWORD2
+setTime_t	KEYWORD2
+
+readTm	KEYWORD2
+writeTm	KEYWORD2
+
+
+# Constants (LITERAL1)
+DS3232_LIB_VERSION	LITERAL1
+DS3232_DEFAULT_ADDRESS	LITERAL1
+
