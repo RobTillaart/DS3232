@@ -64,7 +64,7 @@ unittest(test_getters_setters)
   assertEqual(0, rtc.seconds());
   assertEqual(0, rtc.minutes());
   assertEqual(0, rtc.hours());
-  assertEqual(0, rtc.weekday());
+  assertEqual(0, rtc.weekDay());
   assertEqual(0, rtc.day());
   assertEqual(0, rtc.month());
   assertEqual(0, rtc.year());
