@@ -97,7 +97,7 @@ Fixed address 0x68, both for DS3232 and DS3231, see datasheet
 
 Imagine you want multiple clocks e.g. for different time zones.
 Or just to average them to be more precise, or as backup of each other
-so even swapping batteries can be doen without loss of availability.
+so even swapping batteries can be done without loss of availability.
 
 Sometimes you need to control more devices than possible with the default
 address range the device provides.
@@ -127,7 +127,7 @@ too if they are behind the multiplexer.
 - **DS3232(TwoWire \*wire = &Wire)** Constructor and I2C bus.
 - **int begin()** initializes internals.
 Returns error status.
-- **bool isConnected()** checks if address (default 0x68) can be seen on the I2C bus.
+- **bool isConnected()** checks if address (0x68) can be seen on the I2C bus.
 - **uint8_t getAddress()** returns address (0x68) set in constructor.
 - **uint16_t getType()** returns 3232 or 3231, depending on constructor.
 
@@ -135,7 +135,7 @@ Returns error status.
 
 - **int read()** read the current time from the RTC.
 - **int write()** set the current time in the RTC.
-Writes all fields.
+Writes all fields, be aware that weekDay need to be set too.
 - **uint32_t lastRead()** lastTime in milliseconds when RTC is read.
 
 #### Getters
@@ -154,14 +154,13 @@ Getters return the last read value, to update call **read()** first.
 
 Setters set a value, to update the RTC call **write()** after.
 
-- **void setSeconds(uint8_t value)**
-- **void setMinutes(uint8_t value)**
-- **void setHours(uint8_t value)**
-- **void setDay(uint8_t value)**
-- **void setMonth(uint8_t value)**
-- **void setYear(uint8_t value)**
-
-Note: weekDay cannot be set.
+- **void setSeconds(uint8_t value)** 0..59
+- **void setMinutes(uint8_t value)** 0..59
+- **void setHours(uint8_t value)** 0..23
+- **void setWeekDay(uint8_t value)** 1..7  1 = Monday .. 7 = Sunday
+- **void setDay(uint8_t value)** 1..31
+- **void setMonth(uint8_t value)** 1..12
+- **void setYear(uint8_t value)** 0..99
 
 Note: you can also adjust just one field and keep the others.
 
