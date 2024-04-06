@@ -55,6 +55,7 @@ The only difference found is that the DS3231 does not have the
 
 - https://github.com/JChristensen/DS3232RTC  (full featured DS3232 lib)
 - https://github.com/RobTillaart/dateTimeHelpers
+- https://forum.arduino.cc/t/got-time-from-ntp-server-need-day-of-week/117799/6
 
 
 ## Hardware
@@ -181,6 +182,22 @@ In case of an I2C error one can get the last return value
 of ```wire.EndTransmission()``` to get an indication of the problem.
 
 - **int lastRv()** values depend on platform used.
+
+
+## Notes
+
+#### Day of week
+
+DS3232 datasheet states:
+_The day-of-week register increments at midnight.
+Values that correspond to the day of week are **user defined** but must be 
+sequential (i.e., if 1 equals Sunday, then 2 equals Monday, and so on). 
+Illogical time and date entries result in undefined operation._
+
+- https://forum.arduino.cc/t/got-time-from-ntp-server-need-day-of-week/117799/6
+
+Gives some insight about the weekday encoding from another perspective explaining
+why 0 == Thursday. Epoch (1-1-1970) is a Thursday.
 
 
 ## Future
