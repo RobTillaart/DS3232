@@ -215,20 +215,23 @@ why 0 == Thursday. Epoch (1-1-1970) is a Thursday.
 
 #### Could
 
+DS3232_EXT class
 - add readDate() + readTime()
   - less IO
   - as date is not read so often?
 - int getTemperature();
-- SRAM 236 bytes
-  - int SRAMwrite8(uint8_t index, uint8_t value);
-  - int SRAMwrite16(uint8_t index, uint16_t value);
-  - int SRAMwrite32(uint8_t index, uint32_t value);
-  - int SRAMread8(uint8_t index, uint8_t value);
-  - int SRAMread16(uint8_t index, uint16_t value);
-  - int SRAMread32(uint8_t index, uint32_t value);
-  - float and char array support?
 - AM/PM support could be done in software.
   - simpler than decoding RTC?
+
+
+DS3232EE class for SRAM 236 bytes 
+- int SRAMwrite8(uint8_t index, uint8_t value);
+- int SRAMwrite16(uint8_t index, uint16_t value);
+- int SRAMwrite32(uint8_t index, uint32_t value);
+- int SRAMread8(uint8_t index, uint8_t value);
+- int SRAMread16(uint8_t index, uint16_t value);
+- int SRAMread32(uint8_t index, uint32_t value);
+- float and char array support?
 
 
 #### Wont
