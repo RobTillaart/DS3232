@@ -41,14 +41,14 @@ from 2011 which was never published.
 
 #### Tests
 
-All examples are tested with Arduino UNO with 100KHz I2C.
+All 0.4.0 examples are tested with Arduino UNO with 100KHz I2C.
 
 
 #### Compatibles
 
 The DS3231 RTC is compatible for the date and time keeping part.
 The only difference found is that the DS3231 does not have the 
-236 bytes of **battery backupped** SRAM the DS3232 has.
+236 bytes of **battery back-upped** SRAM the DS3232 has.
 
 
 #### Related
@@ -235,7 +235,7 @@ DS3232EE class for SRAM 236 bytes
 - int SRAMread8(uint8_t index, uint8_t value);
 - int SRAMread16(uint8_t index, uint16_t value);
 - int SRAMread32(uint8_t index, uint32_t value);
-- float and char array support?
+- float and char array support?  Template T;
 
 
 #### Wont
