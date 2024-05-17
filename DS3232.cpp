@@ -2,7 +2,7 @@
 //    FILE: DS3232.cpp
 //  AUTHOR: Rob Tillaart
 // PURPOSE: Arduino library for DS3232 RTC (minimalistic)
-// VERSION: 0.4.0
+// VERSION: 0.4.1
 //    DATE: 2011-01-21
 //     URL: https://github.com/RobTillaart/DS3232
 
@@ -133,6 +133,19 @@ void DS3232::setWeekDay(uint8_t value) { _reg[3] = value; }
 void DS3232::setDay(uint8_t value)     { _reg[4] = value; }
 void DS3232::setMonth(uint8_t value)   { _reg[5] = value; }
 void DS3232::setYear(uint8_t value)    { _reg[6] = value; }
+
+
+/////////////////////////////////////////////////////////
+//
+//  TEMPERATURE
+//
+float DS3232::getTemperature()
+{
+  float temperature = (int8_t)readRegister(DS3232_TEMPERATURE);
+  int   fraction = readRegister(DS3232_TEMPERATURE + 1);
+  if (fraction != 0) temperature += (fraction >> 6) * 0.25;
+  return temperature;
+}
 
 
 /////////////////////////////////////////////////////////

@@ -166,6 +166,11 @@ Setters set a value, to update the RTC call **write()** after.
 Note: you can also adjust just one field and keep the others.
 
 
+#### Temperature
+
+- **float getTemperature()** return temperature in 0.25°C steps.
+
+
 #### Low level: Read/WriteRegister
 
 Allows to access all functionality the library did not implement (yet).
@@ -219,7 +224,6 @@ DS3232_EXT class
 - add readDate() + readTime()
   - less IO
   - as date is not read so often?
-- int getTemperature();
 - AM/PM support could be done in software.
   - simpler than decoding RTC?
 

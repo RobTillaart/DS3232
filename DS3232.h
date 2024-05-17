@@ -3,7 +3,7 @@
 //    FILE: DS3232.h
 //  AUTHOR: Rob Tillaart
 // PURPOSE: Arduino library for DS3232 RTC (minimalistic)
-// VERSION: 0.4.0
+// VERSION: 0.4.1
 //    DATE: 2011-01-21
 //     URL: https://github.com/RobTillaart/DS3232
 
@@ -12,7 +12,7 @@
 #include "Wire.h"
 
 
-#define DS3232_LIB_VERSION         "0.4.0"
+#define DS3232_LIB_VERSION         "0.4.1"
 
 
 //  ERROR CODES
@@ -36,19 +36,21 @@
 class DS3232
 {
 public:
-  //  CONSTRUCTOR
+  //  Constructor
   DS3232(TwoWire *wire = &Wire);
   int      begin();
   bool     isConnected();
   uint8_t  getAddress();
   uint16_t getType();
 
+
   //  BASE RTC
   int      read();
   int      write();
   uint32_t lastRead();
 
-  //  GETTERS
+
+  //  Getters
   uint8_t  seconds();
   uint8_t  minutes();
   uint8_t  hours();
@@ -57,7 +59,8 @@ public:
   uint8_t  month();
   uint8_t  year();
 
-  //  SETTERS
+
+  //  Setters
   void     setSeconds(uint8_t value);
   void     setMinutes(uint8_t value);
   void     setHours(uint8_t value);
@@ -66,6 +69,9 @@ public:
   void     setMonth(uint8_t value);
   void     setYear(uint8_t value);
 
+  //  Temperature
+  float    getTemperature();
+
 
   //  LOW LEVEL access to all registers
   //  check datasheet for details of registers.
@@ -73,7 +79,7 @@ public:
   int      readRegister(uint8_t reg);
   int      writeRegister(uint8_t reg, uint8_t value);
 
-  //  DEBUG
+  //  Debug
   int      lastRv() { return _rv; };
 
 
