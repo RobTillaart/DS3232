@@ -189,6 +189,25 @@ of ```wire.EndTransmission()``` to get an indication of the problem.
 - **int lastRv()** values depend on platform used.
 
 
+## DS3232 SRAM 
+
+Experimental SRAM support, needs to be tested / verified.  
+Feedback welcome.
+
+SRAM is DS3232 specific, and it has 236 bytes.
+The following functions use index 0..235. The user should guard 
+the index esp. for the 16 and 32 bit versions as it is not checked.
+
+236 bytes can be used e.g. to hold 78 hms timestamps
+
+- **int SRAMwrite8(uint8_t index, uint8_t value)**
+- **int SRAMwrite16(uint8_t index, uint16_t value)**
+- **int SRAMwrite32(uint8_t index, uint32_t value)**
+- **uint8_t SRAMread8(uint8_t index)**
+- **uint16_t SRAMread16(uint8_t index)**
+- **uint32_t SRAMread32(uint8_t index)**
+
+
 ## Notes
 
 #### Day of week
@@ -217,30 +236,38 @@ why 0 == Thursday. Epoch (1-1-1970) is a Thursday.
 - test performance / footprint
 - can the trick from the example be included in the library?
   - extra footprint?
+- test SRAM with a DS3232 (need hardware)
 
 #### Could
 
-DS3232_EXT class
 - add readDate() + readTime()
   - less IO
   - as date is not read so often?
 - AM/PM support could be done in software.
+  - 24 hour should be default.
   - simpler than decoding RTC?
 
-
-DS3232EE class for SRAM 236 bytes 
-- int SRAMwrite8(uint8_t index, uint8_t value);
-- int SRAMwrite16(uint8_t index, uint16_t value);
-- int SRAMwrite32(uint8_t index, uint32_t value);
-- int SRAMread8(uint8_t index, uint8_t value);
-- int SRAMread16(uint8_t index, uint16_t value);
-- int SRAMread32(uint8_t index, uint32_t value);
+DS3232 derived class SRAM - test
+- int SRAMwriteFloat(uint8_t index, uint8_t value);
+- float SRAMreadFloat(uint8_t index);
 - float and char array support?  Template T;
+- optimize SRAM read and write functions (performance)
+  - writeRegister(idx, buf, size)
 
 
 #### Wont
 
 Other extended functionality (or in derived class)
+- void startRTC();
+- void stopRTC();
+- bool isRunningRTC();
+- void setSQWMode(uint8_t);  //  0..3 ??
+- alarm 1 & 2, same reg array?
+- RESET pin input and output
+- AM/PM mode not supported, user can handle this easily
+  - bool is24Mode();
+  - void set24Mode();
+  - void set12Mode();
 
 
 ## Support

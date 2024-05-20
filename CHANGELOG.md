@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.4.1] - 2024-05-17
 - add **float getTemperature()**
-- add example
+- make DS3231 the base class as the DS3232 has EEPROM (logical)
+- add experimental SRAM support 
+  - **SRAMwrite8/16/32()** + **SRAMread8/16/32()**
+- add example to test SRAM for DS3232.
 - update readme.md.
 - minor edits
 

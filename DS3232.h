@@ -33,11 +33,11 @@
 #define DS3232_SRAM_BASE            0x14
 
 
-class DS3232
+class DS3231
 {
 public:
   //  Constructor
-  DS3232(TwoWire *wire = &Wire);
+  DS3231(TwoWire *wire = &Wire);
   int      begin();
   bool     isConnected();
   uint8_t  getAddress();
@@ -92,7 +92,7 @@ protected:
   uint32_t  _lastRead = 0;
 
   int       _rv;
-  uint16_t  _type = 3232;
+  uint16_t  _type = 3231;
 
   uint8_t   dec2bcd(uint8_t value);
   uint8_t   bcd2dec(uint8_t value);
@@ -103,10 +103,27 @@ protected:
 //
 //  DERIVED CLASSES
 //
-class DS3231 : public DS3232
+class DS3232 : public DS3231
 {
 public:
-  DS3231(TwoWire *wire = &Wire);
+  DS3232(TwoWire *wire = &Wire);
+
+  //  EXPERIMENTAL SRAM SUPPORT
+  //
+  //  SRAM 236 bytes, register 0x14-0xFF
+  //  index = 0..235 == 0x00..0xEB
+  //  236 bytes = 59 x uint32_t (e.g. time stamps)
+  //  note: no boundary check
+  //  TODO: optimize read/write multiple bytes at once.
+  int      SRAMwrite8(uint8_t index, uint8_t value);
+  int      SRAMwrite16(uint8_t index, uint16_t value);
+  int      SRAMwrite32(uint8_t index, uint32_t value);
+  uint8_t  SRAMread8(uint8_t index);
+  uint16_t SRAMread16(uint8_t index);
+  uint32_t SRAMread32(uint8_t index);
+
+private:
+
 };
 
 
