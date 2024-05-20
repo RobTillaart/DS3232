@@ -31,7 +31,7 @@ void setup()
   //  CLEAR SRAM
   for (uint32_t i = 0; i < 236; i++)
   {
-    rtc.SRAMwrite8(i, 0));
+    rtc.SRAMwrite8(i, 0);
     Serial.print(i);
     Serial.print('\t');
     Serial.println(rtc.SRAMread8(i));
