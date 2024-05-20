@@ -168,6 +168,10 @@ Note: you can also adjust just one field and keep the others.
 
 #### Temperature
 
+Note that the temperature measurement is only refreshed every 64 (default),
+128, 256 or 512 seconds.
+The interval can be set with bits 5 and 4 of the CONTROL/STATUS register (0x0F).
+
 - **float getTemperature()** return temperature in 0.25°C steps.
 
 
@@ -226,6 +230,9 @@ why 0 == Thursday. Epoch (1-1-1970) is a Thursday.
 
 ## Future
 
+Idea: use the DS3231 as the small footprint version
+and allow the DS3232 to support all functionality.
+
 #### Must
 
 - improve documentation.
@@ -242,10 +249,7 @@ why 0 == Thursday. Epoch (1-1-1970) is a Thursday.
 
 - add readDate() + readTime()
   - less IO
-  - as date is not read so often?
-- AM/PM support could be done in software.
-  - 24 hour should be default.
-  - simpler than decoding RTC?
+  - as date is not read so often.
 
 DS3232 derived class SRAM - test
 - int SRAMwriteFloat(uint8_t index, uint8_t value);
