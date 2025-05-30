@@ -41,7 +41,7 @@ from 2011 which was never published.
 
 ### Tests
 
-All 0.4.0 examples are tested with Arduino UNO with 100KHz I2C.
+All 0.4.0 examples are tested with Arduino UNO with 100 kHz I2C.
 Other platforms should be tested too.
 
 
@@ -176,7 +176,7 @@ The interval can be set with bits 5 and 4 of the CONTROL/STATUS register (0x0F).
 - **float getTemperature()** return temperature in 0.25°C steps.
 
 
-### Low level: Read/WriteRegister
+### Low level: read- and writeRegister
 
 Allows to access all functionality the library did not implement (yet).
 Check datasheet for details per register.

@@ -2,7 +2,7 @@
 //    FILE: DS3232.cpp
 //  AUTHOR: Rob Tillaart
 // PURPOSE: Arduino library for DS3232 RTC (minimalistic)
-// VERSION: 0.5.1
+// VERSION: 0.6.0
 //    DATE: 2011-01-21
 //     URL: https://github.com/RobTillaart/DS3232
 
@@ -85,7 +85,7 @@ int DS3231::write()
 {
   _wire->beginTransmission(_address);
   _wire->write(DS3232_SECONDS);
-  _wire->write(_reg[0] | 0x80);  //  stop clock
+  _wire->write(dec2bcd(_reg[0]) | 0x80);  //  stop clock
   for (int i = 1; i < 7; i++)
   {
     _wire->write(dec2bcd(_reg[i]));
@@ -95,7 +95,7 @@ int DS3231::write()
 
   _wire->beginTransmission(_address);
   _wire->write(DS3232_SECONDS);
-  _wire->write(_reg[0] & 0x7f);  //  start clock
+  _wire->write(dec2bcd(_reg[0]) & 0x7f);  //  start clock
   _rv = _wire->endTransmission();
   if (_rv != 0) return DS3232_ERROR_I2C;
 
