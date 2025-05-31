@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.6.0] - 2025-05-30
 - fix #8, setSeconds()
-
+- remove undocumented DS1307 compatibility.
+- minor edits
 
 ----
 
