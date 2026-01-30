@@ -30,12 +30,12 @@ void setup()
     while (1);
   }
 
-  Serial.print("FAST: false: ")
+  Serial.print("FAST: false: ");
   duration(false);
-  Serial.print("FAST: true:  ")
+  Serial.print("FAST: true:  ");
   duration(true);
   
-  Serial.println('\n')
+  Serial.println('\n');
 }
 
 

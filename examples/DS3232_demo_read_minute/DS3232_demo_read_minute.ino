@@ -6,7 +6,7 @@
 //
 //  The trick in this sketch is meant to minimize the read() calls
 //  to minimize I2C.
-//  Might be included in the library in the future.
+//  Included in the library in 0.6.1 (experimental)
 
 
 #include "DS3232.h"
